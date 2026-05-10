@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Immuno Baby | Farzandingiz Salomatligi</title>
+
+<!-- TailwindCSS, Google Fonts & Iconify -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --primary: #FF8BA7;
+    --secondary: #BBDED6;
+    --accent: #FAE3D9;
+    --bg-light: #F8F9FA;
+    --text-dark: #334756;
+  }
+
+  body { 
+    font-family: 'Quicksand', sans-serif;
+    background: #fdfdfd;
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-bold {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  /* Animated Floating Bubbles */
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255,139,167,0.1), rgba(187,222,214,0.1));
+    z-index: -1;
+    filter: blur(20px);
+    animation: float 10s infinite ease-in-out;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    border-radius: 2rem;
+  }
+
+  .kid-button {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .kid-button:active { transform: scale(0.9); }
+
+  .nav-item {
+    transition: all 0.4s ease;
+  }
+  .nav-active {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(255, 139, 167, 0.3);
+  }
+
+  .progress-bar-fill {
+    transition: width 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  .confetti-anim {
+    animation: celebrate 1s ease-out forwards;
+  }
+  @keyframes celebrate {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* Custom Tab Bar */
+  .tab-bar {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+
+  /* Smooth Entrance */
+  .slide-up {
+    animation: slideUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body class="pb-32 overflow-y-auto">
+
+  <!-- Background Decorations -->
+  <div class="bubble w-64 h-64 top-[-50px] right-[-30px]"></div>
+  <div class="bubble w-48 h-48 bottom-[100px] left-[-40px]" style="animation-delay: -2s;"></div>
+  <div class="bubble w-32 h-32 top-[200px] left-[50%] opacity-50" style="animation-delay: -5s;"></div>
+
+  <!-- HEADER -->
+  <header class="px-6 pt-12 pb-6 flex justify-between items-center slide-up">
+    <div>
+      <h2 class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">Xayrli kun 👋</h2>
+      <h1 class="text-3xl font-black text-slate-800">Maftunaxon 💖</h1>
+    </div>
+    <div class="relative">
+      <button class="w-14 h-14 rounded-2xl bg-white shadow-lg flex items-center justify-center kid-button text-rose-400 border border-rose-50">
+        <iconify-icon icon="lucide:bell-ring" width="24"></iconify-icon>
+      </button>
+      <span class="absolute top-0 right-0 w-4 h-4 bg-rose-500 border-2 border-white rounded-full animate-bounce"></span>
+    </div>
+  </header>
+
+  <main class="px-6 space-y-6">
+    
+    <!-- BABY STATUS CARD -->
+    <div class="glass-card p-6 flex items-center gap-5 slide-up" style="animation-delay: 0.1s;">
+      <div class="relative">
+        <div class="w-20 h-20 rounded-3xl bg-gradient-to-br from-rose-200 to-rose-400 flex items-center justify-center text-4xl shadow-inner animate-float">
+          👶
+        </div>
+        <div class="absolute -bottom-2 -right-2 bg-emerald-400 text-white p-1 rounded-lg border-2 border-white flex items-center justify-center">
+          <iconify-icon icon="lucide:check-circle" width="16"></iconify-icon>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-xl font-black text-slate-800">Immunitet: <span class="text-emerald-500">A'lo</span></h3>
+        <p class="text-sm text-slate-400 font-medium">6 oylik · Sog'lom o'smoqda</p>
+        <div class="flex gap-2 mt-2">
+          <span class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-500 text-[10px] font-bold">🩸 A+</span>
+          <span class="px-2 py-0.5 rounded-full bg-blue-100 text-blue-500 text-[10px] font-bold">📏 68 sm</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN ACTION CARD -->
+    <div class="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-[2.5rem] p-8 text-white shadow-2xl shadow-purple-500/30 slide-up relative overflow-hidden" style="animation-delay: 0.2s;">
+      <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-xl"></div>
+      
+      <div class="relative z-10">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="bg-white/20 p-2 rounded-xl backdrop-blur-md">
+            <iconify-icon icon="lucide:syringe" width="24"></iconify-icon>
+          </div>
+          <span class="text-xs font-black uppercase tracking-widest opacity-80">Emlash Vaqti</span>
+        </div>
+
+        <h2 class="text-3xl font-black mb-2">Pentavalent-2</h2>
+        <p class="text-indigo-100 text-sm mb-6">5-aprel kuni, soat 09:00 da poliklinikaga boring.</p>
+
+        <div class="flex items-end justify-between">
+          <div class="flex -space-x-3">
+            <div class="w-10 h-10 rounded-full border-2 border-purple-400 bg-white/20 backdrop-blur-sm flex items-center justify-center text-lg">💊</div>
+            <div class="w-10 h-10 rounded-full border-2 border-purple-400 bg-white/20 backdrop-blur-sm flex items-center justify-center text-lg">🥛</div>
+            <div class="w-10 h-10 rounded-full border-2 border-purple-400 bg-white/20 backdrop-blur-sm flex items-center justify-center text-lg">💤</div>
+          </div>
+          <div class="text-right">
+            <p class="text-4xl font-black">03</p>
+            <p class="text-[10px] font-black uppercase tracking-tighter opacity-70">Kun qoldi</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS GRID -->
+    <div class="grid grid-cols-2 gap-4 slide-up" style="animation-delay: 0.3s;">
+      <div class="glass-card p-6 border-rose-100">
+        <iconify-icon icon="lucide:weight" width="32" class="text-rose-400 mb-3"></iconify-icon>
+        <p class="text-3xl font-black text-slate-800">7.5 <span class="text-xs text-slate-400">kg</span></p>
+        <p class="text-xs font-bold text-rose-500 uppercase tracking-widest mt-1">Vazn</p>
+      </div>
+      <div class="glass-card p-6 border-emerald-100">
+        <iconify-icon icon="lucide:ruler" width="32" class="text-emerald-400 mb-3"></iconify-icon>
+        <p class="text-3xl font-black text-slate-800">68 <span class="text-xs text-slate-400">sm</span></p>
+        <p class="text-xs font-bold text-emerald-500 uppercase tracking-widest mt-1">Bo'y</p>
+      </div>
+    </div>
+
+    <!-- GROWTH CHART PREVIEW -->
+    <div class="glass-card p-6 slide-up" style="animation-delay: 0.4s;">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-lg font-black text-slate-800">📈 O'sish jadvali</h3>
+        <button class="text-xs font-bold text-rose-500 bg-rose-50 px-3 py-1.5 rounded-full kid-button">Yangi qo'shish +</button>
+      </div>
+      <div class="h-32 flex items-end gap-2 justify-between">
+        <div class="flex-1 bg-slate-100 rounded-t-xl h-[40%] transition-all hover:h-[45%] cursor-pointer group relative">
+          <div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[8px] font-bold opacity-0 group-hover:opacity-100">4-oy</div>
+        </div>
+        <div class="flex-1 bg-slate-100 rounded-t-xl h-[55%] transition-all hover:h-[60%] cursor-pointer group relative"></div>
+        <div class="flex-1 bg-rose-200 rounded-t-xl h-[70%] transition-all hover:h-[75%] cursor-pointer group relative shadow-lg shadow-rose-200/50">
+          <div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[8px] font-bold">Hozir</div>
+        </div>
+        <div class="flex-1 bg-slate-100 rounded-t-xl h-[85%] border-2 border-dashed border-slate-200 transition-all hover:border-rose-300"></div>
+      </div>
+    </div>
+
+    <!-- VACCINATION LIST -->
+    <div class="slide-up" style="animation-delay: 0.5s;">
+      <h3 class="text-lg font-black text-slate-800 mb-4 px-2">📅 Emlashlar Ro'yxati</h3>
+      <div class="space-y-3">
+        <div class="bg-white/80 p-4 rounded-3xl flex items-center justify-between border border-emerald-50 group hover:shadow-lg transition-all">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-500 flex items-center justify-center">
+              <iconify-icon icon="lucide:check-circle" width="24"></iconify-icon>
+            </div>
+            <div>
+              <p class="font-bold text-slate-800">BCG (Silga qarshi)</p>
+              <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Bajarilgan · 15.10.2024</p>
+            </div>
+          </div>
+          <iconify-icon icon="lucide:chevron-right" width="20" class="text-slate-200 group-hover:text-emerald-400"></iconify-icon>
+        </div>
+
+        <div class="bg-white/80 p-4 rounded-3xl flex items-center justify-between border border-amber-50 group hover:shadow-lg transition-all border-l-4 border-l-amber-400">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-500 flex items-center justify-center">
+              <iconify-icon icon="lucide:clock" width="24"></iconify-icon>
+            </div>
+            <div>
+              <p class="font-bold text-slate-800">Pentavalent-2</p>
+              <p class="text-[10px] text-amber-600 font-bold uppercase tracking-widest">Kutilmoqda · 5-aprel</p>
+            </div>
+          </div>
+          <iconify-icon icon="lucide:chevron-right" width="20" class="text-slate-200 group-hover:text-amber-400"></iconify-icon>
+        </div>
+      </div>
+    </div>
+
+    <!-- KNOWLEDGE CARDS -->
+    <div class="slide-up pb-10" style="animation-delay: 0.6s;">
+      <h3 class="text-lg font-black text-slate-800 mb-4 px-2">💡 Foydali Ma'lumotlar</h3>
+      <div class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+        <div class="min-w-[200px] glass-card p-5 bg-gradient-to-br from-blue-50 to-white">
+          <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-500 flex items-center justify-center mb-3">
+            <iconify-icon icon="lucide:baby" width="20"></iconify-icon>
+          </div>
+          <h4 class="font-bold text-sm text-slate-800 mb-1">To'g'ri ovqatlantirish</h4>
+          <p class="text-[10px] text-slate-500 leading-relaxed">6 oylikdan boshlab qo'shimcha ovqatlarni qanday kiritish kerak?</p>
+        </div>
+        <div class="min-w-[200px] glass-card p-5 bg-gradient-to-br from-rose-50 to-white">
+          <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-500 flex items-center justify-center mb-3">
+            <iconify-icon icon="lucide:thermometer" width="20"></iconify-icon>
+          </div>
+          <h4 class="font-bold text-sm text-slate-800 mb-1">Emlashdan so'ng</h4>
+          <p class="text-[10px] text-slate-500 leading-relaxed">Isitma chiqsa nima qilish kerak? Shifokor maslahatlari.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- TAB BAR -->
+  <nav class="fixed bottom-0 left-0 right-0 h-24 tab-bar flex items-center justify-around px-6 z-50 rounded-t-[3rem] shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
+    <button class="nav-item flex flex-col items-center justify-center w-14 h-14 rounded-2xl nav-active kid-button">
+      <iconify-icon icon="lucide:home" width="24"></iconify-icon>
+    </button>
+    <button class="nav-item flex flex-col items-center justify-center w-14 h-14 rounded-2xl text-slate-400 hover:text-rose-400 kid-button">
+      <iconify-icon icon="lucide:calendar" width="24"></iconify-icon>
+    </button>
+    <button class="nav-item flex flex-col items-center justify-center w-14 h-14 rounded-2xl text-slate-400 hover:text-rose-400 kid-button">
+      <iconify-icon icon="lucide:book-open" width="24"></iconify-icon>
+    </button>
+    <button class="nav-item flex flex-col items-center justify-center w-14 h-14 rounded-2xl text-slate-400 hover:text-rose-400 kid-button">
+      <iconify-icon icon="lucide:user" width="24"></iconify-icon>
+    </button>
+  </nav>
+
+  <script>
+    // Simple confetti effect for celebration
+    function celebrate() {
+      const dashboard = document.getElementById('dashboard');
+      const confetti = document.createElement('div');
+      confetti.className = 'fixed inset-0 pointer-events-none z-[100] flex items-center justify-center text-4xl confetti-anim';
+      confetti.innerHTML = '✨💖🌈🦄🍭';
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 1000);
+    }
+    
+    // Add interactions
+    document.querySelectorAll('.kid-button').forEach(btn => {
+      btn.addEventListener('click', celebrate);
+    });
+  </script>
+
+</body>
+</html>

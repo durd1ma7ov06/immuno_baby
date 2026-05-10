@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VaxiCare | Emlashlar haqida ma'lumot</title>
+
+<!-- TailwindCSS & Iconify -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
+
+<style>
+body { font-family: 'Segoe UI', sans-serif; background: #f0f9ff; }
+.accordion-btn {
+  transition: all 0.3s ease;
+}
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.accordion-content.active {
+  max-height: 500px;
+}
+.vaccine-card {
+  transition: all 0.3s ease;
+}
+.vaccine-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 20px -8px rgba(0,0,0,0.15);
+}
+</style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-teal-50">
+
+<div class="max-w-md mx-auto bg-white min-h-screen shadow-xl relative pb-24">
+  
+  <!-- Header -->
+  <div class="bg-gradient-to-r from-teal-500 to-emerald-600 rounded-b-3xl px-5 pt-8 pb-6 text-white">
+    <div class="flex justify-between items-start">
+      <div>
+        <p class="text-teal-100 text-sm">📚 Ma'lumotlar</p>
+        <h1 class="text-2xl font-bold">Emlashlar haqida</h1>
+        <p class="text-teal-100 text-xs mt-1">Farzandingiz salomatligi uchun kerakli ma'lumotlar</p>
+      </div>
+      <div class="bg-white/20 backdrop-blur rounded-full p-2">
+        <iconify-icon icon="lucide:book-open" width="22" style="color: white;"></iconify-icon>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="px-4 py-5 space-y-5">
+    
+    <!-- 💉 Barcha emlashlar ro'yxati -->
+    <div class="bg-white rounded-2xl shadow-lg p-4">
+      <h2 class="font-bold text-gray-700 mb-3 flex items-center gap-2 border-b pb-2">
+        <iconify-icon icon="lucide:syringe" width="22" class="text-teal-500"></iconify-icon>
+        💉 Barcha emlashlar ro'yxati
+      </h2>
+      <div class="space-y-2" id="vaccinesList">
+        <!-- JS bilan to'ldiriladi -->
+      </div>
+    </div>
+
+    <!-- 📖 Har bir emlash haqida (Accordion) -->
+    <div class="bg-white rounded-2xl shadow-lg p-4">
+      <h2 class="font-bold text-gray-700 mb-3 flex items-center gap-2 border-b pb-2">
+        <iconify-icon icon="lucide:info" width="22" class="text-blue-500"></iconify-icon>
+        📖 Emlashlar haqida batafsil
+      </h2>
+      <div id="accordionContainer">
+        <!-- JS bilan to'ldiriladi -->
+      </div>
+    </div>
+
+    <!-- 👶 Yoshga qarab emlashlar jadvali -->
+    <div class="bg-white rounded-2xl shadow-lg p-4">
+      <h2 class="font-bold text-gray-700 mb-3 flex items-center gap-2 border-b pb-2">
+        <iconify-icon icon="lucide:calendar-days" width="22" class="text-purple-500"></iconify-icon>
+        👶 Yoshga qarab emlashlar taqvimi
+      </h2>
+      <div class="space-y-2">
+        <div class="flex justify-between items-center p-2 bg-blue-50 rounded-lg">
+          <span class="font-medium">Tug'ilganda</span>
+          <span class="text-sm text-gray-600">BCG, Hep B (1)</span>
+        </div>
+        <div class="flex justify-between items-center p-2 bg-green-50 rounded-lg">
+          <span class="font-medium">2 oylik</span>
+          <span class="text-sm text-gray-600">Pentavalent (1), OPV</span>
+        </div>
+        <div class="flex justify-between items-center p-2 bg-green-50 rounded-lg">
+          <span class="font-medium">4 oylik</span>
+          <span class="text-sm text-gray-600">Pentavalent (2)</span>
+        </div>
+        <div class="flex justify-between items-center p-2 bg-yellow-50 rounded-lg">
+          <span class="font-medium">6 oylik</span>
+          <span class="text-sm text-gray-600">Pentavalent (3), Hep B (2)</span>
+        </div>
+        <div class="flex justify-between items-center p-2 bg-orange-50 rounded-lg">
+          <span class="font-medium">9 oylik</span>
+          <span class="text-sm text-gray-600">MMR (1)</span>
+        </div>
+        <div class="flex justify-between items-center p-2 bg-red-50 rounded-lg">
+          <span class="font-medium">12 oylik</span>
+          <span class="text-sm text-gray-600">Hep A</span>
+        </div>
+        <div class="flex justify-between items-center p-2 bg-purple-50 rounded-lg">
+          <span class="font-medium">18 oylik</span>
+          <span class="text-sm text-gray-600">Pentavalent (4), OPV</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ⚠️ Qachon emlash kerak emas -->
+    <div class="bg-white rounded-2xl shadow-lg p-4">
+      <h2 class="font-bold text-gray-700 mb-3 flex items-center gap-2 border-b pb-2">
+        <iconify-icon icon="lucide:alert-triangle" width="22" class="text-red-500"></iconify-icon>
+        ⚠️ Qachon emlash kerak emas
+      </h2>
+      <div class="space-y-2 text-sm">
+        <div class="flex items-start gap-2 p-2 bg-red-50 rounded-lg">
+          <span class="text-red-500">⚠️</span>
+          <span>Harorat 38.5°C dan yuqori bo'lganda</span>
+        </div>
+        <div class="flex items-start gap-2 p-2 bg-red-50 rounded-lg">
+          <span class="text-red-500">⚠️</span>
+          <span>Og'ir allergik reaksiyalar (oldin parhezda)</span>
+        </div>
+        <div class="flex items-start gap-2 p-2 bg-red-50 rounded-lg">
+          <span class="text-red-500">⚠️</span>
+          <span>Immunitet tizimi zaif bo'lgan bolalar (doktor bilan maslahat)</span>
+        </div>
+        <div class="flex items-start gap-2 p-2 bg-red-50 rounded-lg">
+          <span class="text-red-500">⚠️</span>
+          <span>Og'ir surunkali kasalliklar kuchayganda</span>
+        </div>
+        <div class="flex items-start gap-2 p-2 bg-yellow-50 rounded-lg">
+          <span class="text-yellow-500">📌</span>
+          <span>Engil sovuq, burun oqishi - emlash mumkin</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ❓ Ko'p beriladigan savollar (FAQ) -->
+    <div class="bg-white rounded-2xl shadow-lg p-4">
+      <h2 class="font-bold text-gray-700 mb-3 flex items-center gap-2 border-b pb-2">
+        <iconify-icon icon="lucide:help-circle" width="22" class="text-indigo-500"></iconify-icon>
+        ❓ Ko'p beriladigan savollar
+      </h2>
+      <div class="space-y-3" id="faqContainer">
+        <!-- JS bilan to'ldiriladi -->
+      </div>
+    </div>
+
+    <!-- 📞 Tez yordam raqamlari -->
+    <div class="bg-gradient-to-r from-red-500 to-pink-600 rounded-2xl shadow-lg p-4 text-white">
+      <h2 class="font-bold mb-3 flex items-center gap-2">
+        <iconify-icon icon="lucide:phone" width="22"></iconify-icon>
+        📞 Tez yordam va muhim raqamlar
+      </h2>
+      <div class="space-y-2">
+        <div class="flex justify-between items-center bg-white/20 rounded-lg p-2">
+          <span>🚑 Tez yordam</span>
+          <span class="font-bold text-lg">103</span>
+        </div>
+        <div class="flex justify-between items-center bg-white/20 rounded-lg p-2">
+          <span>🏥 Poliklinika (3-sonli)</span>
+          <span class="font-bold">+998 71 123 45 67</span>
+        </div>
+        <div class="flex justify-between items-center bg-white/20 rounded-lg p-2">
+          <span>👩‍⚕️ Pediatringiz</span>
+          <span class="font-bold">+998 90 123 45 67</span>
+        </div>
+        <div class="flex justify-between items-center bg-white/20 rounded-lg p-2">
+          <span>🆘 Yagona navbatchilik</span>
+          <span class="font-bold">112</span>
+        </div>
+      </div>
+      <button onclick="callEmergency()" class="w-full mt-3 bg-white text-red-600 py-2 rounded-xl font-bold">
+        📞 Tez yordamga qo'ng'iroq qilish
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200 py-2 px-5 flex justify-between shadow-lg">
+    <button class="flex flex-col items-center text-gray-400" onclick="goToHome()">
+      <iconify-icon icon="lucide:home" width="22"></iconify-icon>
+      <span class="text-xs">Asosiy</span>
+    </button>
+    <button class="flex flex-col items-center text-gray-400" onclick="goToCalendar()">
+      <iconify-icon icon="lucide:calendar" width="22"></iconify-icon>
+      <span class="text-xs">Taqvim</span>
+    </button>
+    <button class="flex flex-col items-center text-teal-600">
+      <iconify-icon icon="lucide:info" width="22"></iconify-icon>
+      <span class="text-xs font-medium">Ma'lumot</span>
+    </button>
+    <button class="flex flex-col items-center text-gray-400" onclick="goToProfile()">
+      <iconify-icon icon="lucide:user" width="22"></iconify-icon>
+      <span class="text-xs">Profil</span>
+    </button>
+  </div>
+</div>
+
+<script>
+// Emlashlar ro'yxati
+const vaccines = [
+  { name: "BCG", disease: "Sil kasalligi", protection: "Og'ir sil shakllaridan", sideEffects: "Qizarish, shish, kichik yara" },
+  { name: "Pentavalent", disease: "Diffteriya, ko'kyo'tal, tetanus, gepatit B, Haemophilus influenzae", protection: "5 xil xavfli kasallikdan", sideEffects: "Harorat, injiqlik, ukol joyi shishishi" },
+  { name: "OPV", disease: "Poliomielit", protection: "Polio (shol) kasalligidan", sideEffects: "Juda kam uchraydi" },
+  { name: "MMR", disease: "Qizamiq, qizilcha, parotit", protection: "3 xil virusli kasallikdan", sideEffects: "Harorat, toshma, bo'g'im og'rig'i" },
+  { name: "Hep B", disease: "Gepatit B", protection: "Jigar yallig'lanishidan", sideEffects: "Ukol joyi og'rig'i, harorat" },
+  { name: "Hep A", disease: "Gepatit A", protection: "Sariq kasallikdan", sideEffects: "Bosh og'rig'i, charchoq" }
+];
+
+// Ko'p beriladigan savollar
+const faqs = [
+  { q: "Emlashdan keyin harorat ko'tarilsa nima qilish kerak?", a: "Paratsetamol bering, ko'p suv ichiring. Harorat 38.5° dan oshsa yoki 2 kundan ko'p ketsa shifokorga murojaat qiling." },
+  { q: "Emlashdan keyin cho'miltirish mumkinmi?", a: "Emlash kunida cho'miltirmaslik tavsiya etiladi. 24 soatdan keyin xavfsiz." },
+  { q: "Emlashni kechiktirish mumkinmi?", a: "Mumkin, lekin imkon qadar tezroq qilish kerak. Kechiktirish himoyani susaytiradi." },
+  { q: "Allergiyasi bor bola emlanishi mumkinmi?", a: "Allergiya turiga bog'liq. Tuxumga allergiya - MMR emlashdan oldin doktor bilan maslahatlashing." },
+  { q: "Emlash bepulmi?", a: "O'zbekistonda milliy taqvimdagi barcha emlashlar bepul." }
+];
+
+// Emlashlar ro'yxatini chiqarish
+function renderVaccinesList() {
+  const container = document.getElementById('vaccinesList');
+  container.innerHTML = vaccines.map(v => `
+    <div class="vaccine-card bg-gray-50 rounded-xl p-3 cursor-pointer" onclick="scrollToVaccine('${v.name}')">
+      <div class="flex justify-between items-center">
+        <div>
+          <p class="font-semibold text-gray-800">${v.name}</p>
+          <p class="text-xs text-gray-500">${v.disease.split(',')[0]}...</p>
+        </div>
+        <iconify-icon icon="lucide:chevron-right" width="18" class="text-gray-400"></iconify-icon>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Accordion (batafsil ma'lumot)
+function renderAccordion() {
+  const container = document.getElementById('accordionContainer');
+  container.innerHTML = vaccines.map((v, idx) => `
+    <div class="border-b border-gray-100">
+      <button onclick="toggleAccordion(${idx})" class="accordion-btn w-full text-left py-3 flex justify-between items-center">
+        <span class="font-medium text-gray-700">💉 ${v.name}</span>
+        <iconify-icon id="accordionIcon${idx}" icon="lucide:chevron-down" width="18" class="text-gray-400"></iconify-icon>
+      </button>
+      <div id="accordionContent${idx}" class="accordion-content pl-4 pr-2 pb-2 text-sm text-gray-600 space-y-1">
+        <p><span class="font-semibold">🦠 Himoya qiladi:</span> ${v.disease}</p>
+        <p><span class="font-semibold">🛡 Himoya turi:</span> ${v.protection}</p>
+        <p><span class="font-semibold">⚠️ Yon ta'siri:</span> ${v.sideEffects}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Accordion toggle
+function toggleAccordion(idx) {
+  const content = document.getElementById(`accordionContent${idx}`);
+  const icon = document.getElementById(`accordionIcon${idx}`);
+  
+  content.classList.toggle('active');
+  if(content.classList.contains('active')) {
+    icon.setAttribute('icon', 'lucide:chevron-up');
+  } else {
+    icon.setAttribute('icon', 'lucide:chevron-down');
+  }
+}
+
+// FAQ Accordion
+function renderFAQ() {
+  const container = document.getElementById('faqContainer');
+  container.innerHTML = faqs.map((faq, idx) => `
+    <div class="border border-gray-100 rounded-xl overflow-hidden">
+      <button onclick="toggleFAQ(${idx})" class="w-full text-left p-3 bg-gray-50 flex justify-between items-center">
+        <span class="font-medium text-gray-700 text-sm">❓ ${faq.q}</span>
+        <iconify-icon id="faqIcon${idx}" icon="lucide:plus" width="16" class="text-teal-500"></iconify-icon>
+      </button>
+      <div id="faqContent${idx}" class="hidden p-3 text-sm text-gray-600 bg-white border-t border-gray-100">
+        💡 ${faq.a}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleFAQ(idx) {
+  const content = document.getElementById(`faqContent${idx}`);
+  const icon = document.getElementById(`faqIcon${idx}`);
+  
+  if(content.classList.contains('hidden')) {
+    content.classList.remove('hidden');
+    icon.setAttribute('icon', 'lucide:minus');
+  } else {
+    content.classList.add('hidden');
+    icon.setAttribute('icon', 'lucide:plus');
+  }
+}
+
+// Emlash nomi bo'yicha scroll
+function scrollToVaccine(vaccineName) {
+  alert(`💉 ${vaccineName} haqida ma'lumot yuqorida`);
+  // Accordion birinchi ochiladi
+  const idx = vaccines.findIndex(v => v.name === vaccineName);
+  if(idx !== -1) {
+    toggleAccordion(idx);
+    document.getElementById('accordionContainer').scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+// Tez yordamga qo'ng'iroq
+function callEmergency() {
+  if(confirm("🚑 Tez yordamga qo'ng'iroq qilasizmi? (103)")) {
+    window.location.href = "tel:103";
+  }
+}
+
+// Navigatsiya
+function goToHome() {
+  alert("Asosiy sahifaga o'tish");
+}
+
+function goToCalendar() {
+  alert("Taqvim sahifasiga o'tish");
+}
+
+function goToProfile() {
+  alert("Profil sahifasiga o'tish");
+}
+
+// Sahifa yuklanganda
+renderVaccinesList();
+renderAccordion();
+renderFAQ();
+</script>
+
+</body>
+</html>

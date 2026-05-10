@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VaxiCare | Profil</title>
+
+<!-- TailwindCSS & Iconify -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
+<style>
+body { font-family: 'Segoe UI', sans-serif; background: #f0f9ff; transition: all 0.3s ease; }
+.edit-btn { transition: all 0.2s ease; }
+.edit-btn:hover { transform: scale(1.05); }
+.toggle-switch { position: relative; display: inline-block; width: 48px; height: 24px; }
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: 0.3s; border-radius: 24px; }
+.slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: 0.3s; border-radius: 50%; }
+input:checked + .slider { background-color: #14b8a6; }
+input:checked + .slider:before { transform: translateX(24px); }
+.dark-mode { background: #1a1a2e; color: #fff; }
+.dark-mode .bg-white { background: #16213e; color: #fff; }
+.dark-mode .text-gray-600, .dark-mode .text-gray-500, .dark-mode .text-gray-700 { color: #ccc; }
+.dark-mode .bg-gray-50, .dark-mode .bg-blue-50, .dark-mode .bg-teal-50, .dark-mode .bg-purple-50 { background: #0f3460; }
+</style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-teal-50" id="body">
+
+<div class="max-w-md mx-auto bg-white min-h-screen shadow-xl relative pb-24" id="mainContainer">
+  
+  <!-- Header -->
+  <div class="bg-gradient-to-r from-teal-500 to-emerald-600 rounded-b-3xl px-5 pt-8 pb-6 text-white">
+    <div class="flex justify-between items-start">
+      <div>
+        <p class="text-teal-100 text-sm" id="headerSubtitle">👤 Mening profilim</p>
+        <h1 class="text-2xl font-bold" id="headerTitle">Maftuna & Oila</h1>
+        <p class="text-teal-100 text-xs mt-1" id="headerDesc">Bola va ota-ona ma'lumotlari</p>
+      </div>
+      <div class="bg-white/20 backdrop-blur rounded-full p-2">
+        <iconify-icon icon="lucide:user" width="22" style="color: white;"></iconify-icon>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="px-4 py-5 space-y-5" id="contentContainer">
+    
+    <!-- A. Bola haqida -->
+    <div class="bg-white rounded-2xl shadow-lg p-4">
+      <div class="flex justify-between items-center mb-3 border-b pb-2">
+        <h2 class="font-bold text-gray-700 flex items-center gap-2">
+          <iconify-icon icon="lucide:baby" width="22" class="text-teal-500"></iconify-icon>
+          <span id="sectionChildTitle">👶 Bola haqida</span>
+        </h2>
+        <button onclick="editChildInfo()" class="edit-btn text-teal-500 text-sm flex items-center gap-1">
+          <iconify-icon icon="lucide:edit" width="14"></iconify-icon>
+          <span id="editBtnText">Tahrirlash</span>
+        </button>
+      </div>
+      
+      <div class="flex items-center gap-4 mb-4">
+        <div class="relative">
+          <div class="w-20 h-20 bg-gradient-to-br from-teal-400 to-emerald-500 rounded-full flex items-center justify-center text-white text-3xl shadow-md">
+            👶
+          </div>
+          <button onclick="changeAvatar()" class="absolute bottom-0 right-0 bg-white rounded-full p-1 shadow-md">
+            <iconify-icon icon="lucide:camera" width="14" class="text-teal-500"></iconify-icon>
+          </button>
+        </div>
+        <div>
+          <p class="font-bold text-gray-800 text-lg" id="childName">Maftuna</p>
+          <p class="text-sm text-gray-500" id="childAge">6 oylik · 15.10.2024</p>
+          <p class="text-sm text-gray-500" id="bloodGroup">🩸 Qon guruhi: A+</p>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-3 mb-3">
+        <div class="bg-teal-50 rounded-xl p-3 text-center">
+          <p class="text-gray-500 text-xs" id="weightLabel">⚖️ Vazn</p>
+          <p class="font-bold text-teal-700 text-xl" id="weight">7.5 kg</p>
+          <p class="text-green-600 text-xs" id="weightChange">+0.3 kg</p>
+        </div>
+        <div class="bg-blue-50 rounded-xl p-3 text-center">
+          <p class="text-gray-500 text-xs" id="heightLabel">📏 Bo'y</p>
+          <p class="font-bold text-blue-700 text-xl" id="height">68 sm</p>
+          <p class="text-green-600 text-xs" id="heightChange">+1.2 sm</p>
+        </div>
+        <div class="bg-purple-50 rounded-xl p-3 text-center">
+          <p class="text-gray-500 text-xs" id="teethLabel">🦷 Tishlar</p>
+          <p class="font-bold text-purple-700 text-xl" id="teeth">4 ta</p>
+          <p class="text-gray-500 text-xs" id="teethDesc">pastki 2, ustki 2</p>
+        </div>
+        <div class="bg-orange-50 rounded-xl p-3 text-center">
+          <p class="text-gray-500 text-xs" id="vaccinesLabel">💉 Emlashlar</p>
+          <p class="font-bold text-orange-700 text-xl">7/10</p>
+          <p class="text-gray-500 text-xs" id="vaccinesProgress">70% bajarilgan</p>
+        </div>
+      </div>
+      
+      <button onclick="updateData()" class="w-full bg-teal-500 text-white py-2 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 mt-2">
+        <iconify-icon icon="lucide:refresh-cw" width="16"></iconify-icon>
+        <span id="updateBtnText">🔄 Ma'lumotlarni yangilash</span>
+      </button>
+    </div>
+
+    <!-- B. Ota-ona haqida -->
+    <div class="bg-white rounded-2xl shadow-lg p-4">
+      <div class="flex justify-between items-center mb-3 border-b pb-2">
+        <h2 class="font-bold text-gray-700 flex items-center gap-2">
+          <iconify-icon icon="lucide:users" width="22" class="text-blue-500"></iconify-icon>
+          <span id="sectionParentsTitle">👨‍👩‍👧 Ota-ona haqida</span>
+        </h2>
+        <button onclick="editParentsInfo()" class="edit-btn text-teal-500 text-sm flex items-center gap-1">
+          <iconify-icon icon="lucide:edit" width="14"></iconify-icon>
+          <span id="editParentsBtnText">Tahrirlash</span>
+        </button>
+      </div>
+      
+      <div class="space-y-3">
+        <div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
+          <span class="text-gray-600" id="motherLabel">👩 Onaning ismi</span>
+          <span class="font-medium" id="motherName">Dildora</span>
+        </div>
+        <div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
+          <span class="text-gray-600" id="fatherLabel">👨 Otaning ismi</span>
+          <span class="font-medium" id="fatherName">Jahongir</span>
+        </div>
+        <div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
+          <span class="text-gray-600" id="phoneLabel">📞 Telefon raqam</span>
+          <span class="font-medium" id="phone">+998 99 123 45 67</span>
+        </div>
+        <div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
+          <span class="text-gray-600" id="emailLabel">📧 Email</span>
+          <span class="font-medium" id="email">dildora@example.com</span>
+        </div>
+        <div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
+          <span class="text-gray-600" id="addressLabel">📍 Manzil</span>
+          <span class="font-medium" id="address">Toshkent, Chilonzor tumani</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- C. Sozlamalar -->
+    <div class="bg-white rounded-2xl shadow-lg p-4">
+      <h2 class="font-bold text-gray-700 mb-3 flex items-center gap-2 border-b pb-2">
+        <iconify-icon icon="lucide:settings" width="22" class="text-gray-600"></iconify-icon>
+        <span id="settingsTitle">⚙️ Sozlamalar</span>
+      </h2>
+      
+      <div class="space-y-3">
+        <div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
+          <div class="flex items-center gap-2">
+            <iconify-icon icon="lucide:bell" width="18"></iconify-icon>
+            <span id="notificationLabel">🔔 Bildirishnoma</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="notificationToggle" checked onchange="toggleNotification()">
+            <span class="slider"></span>
+          </label>
+        </div>
+        
+        <div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
+          <div class="flex items-center gap-2">
+            <iconify-icon icon="lucide:moon" width="18"></iconify-icon>
+            <span id="darkModeLabel">🌙 Qorong'u rejim</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+            <span class="slider"></span>
+          </label>
+        </div>
+        
+        <div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
+          <div class="flex items-center gap-2">
+            <iconify-icon icon="lucide:globe" width="18"></iconify-icon>
+            <span id="languageLabel">🌐 Til</span>
+          </div>
+          <select id="languageSelect" onchange="changeLanguage()" class="border rounded-lg px-2 py-1 text-sm bg-white">
+            <option value="uz">O'zbekcha</option>
+            <option value="ru">Русский</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+        
+        <button onclick="changePassword()" class="w-full flex justify-between items-center p-2 bg-gray-50 rounded-lg hover:bg-gray-100">
+          <div class="flex items-center gap-2">
+            <iconify-icon icon="lucide:lock" width="18"></iconify-icon>
+            <span id="changePasswordLabel">🔐 Parolni o'zgartirish</span>
+          </div>
+          <iconify-icon icon="lucide:chevron-right" width="16"></iconify-icon>
+        </button>
+        
+        <button onclick="logout()" class="w-full flex justify-between items-center p-2 bg-red-50 rounded-lg text-red-600">
+          <div class="flex items-center gap-2">
+            <iconify-icon icon="lucide:log-out" width="18"></iconify-icon>
+            <span id="logoutLabel">🚪 Chiqish</span>
+          </div>
+          <iconify-icon icon="lucide:chevron-right" width="16"></iconify-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- D. Boshqa ma'lumotlar -->
+    <div class="bg-white rounded-2xl shadow-lg p-4">
+      <h2 class="font-bold text-gray-700 mb-3 flex items-center gap-2 border-b pb-2">
+        <iconify-icon icon="lucide:folder" width="22" class="text-purple-500"></iconify-icon>
+        <span id="otherInfoTitle">📁 Boshqa ma'lumotlar</span>
+      </h2>
+      
+      <div class="space-y-3">
+        <div class="flex justify-between items-center p-2 bg-purple-50 rounded-lg">
+          <div class="flex items-center gap-2">
+            <iconify-icon icon="lucide:building" width="18"></iconify-icon>
+            <span id="clinicLabel">🏥 Poliklinika</span>
+          </div>
+          <span class="font-medium text-sm" id="clinicName">3-sonli oilaviy poliklinika</span>
+        </div>
+        
+        <div class="flex justify-between items-center p-2 bg-purple-50 rounded-lg">
+          <div class="flex items-center gap-2">
+            <iconify-icon icon="lucide:stethoscope" width="18"></iconify-icon>
+            <span id="pediatricianLabel">👩‍⚕️ Pediatr</span>
+          </div>
+          <div class="text-right">
+            <span class="font-medium text-sm" id="pediatricianName">Dr. Nigora Azimova</span>
+            <span class="text-xs text-gray-500 block" id="pediatricianSchedule">+998 90 123 45 67 · Dush-Ju 14:00-17:00</span>
+          </div>
+        </div>
+        
+        <button onclick="downloadPDF()" class="w-full flex justify-between items-center p-2 bg-teal-50 rounded-lg text-teal-700">
+          <div class="flex items-center gap-2">
+            <iconify-icon icon="lucide:file-text" width="18"></iconify-icon>
+            <span id="downloadPDFLabel">📋 Emlash kartasini yuklab olish (PDF)</span>
+          </div>
+          <iconify-icon icon="lucide:download" width="16"></iconify-icon>
+        </button>
+        
+        <button onclick="syncData()" class="w-full flex justify-between items-center p-2 bg-blue-50 rounded-lg text-blue-700">
+          <div class="flex items-center gap-2">
+            <iconify-icon icon="lucide:cloud" width="18"></iconify-icon>
+            <span id="syncLabel">🔄 Ma'lumotlarni sinxronlash (Cloud)</span>
+          </div>
+          <iconify-icon icon="lucide:upload-cloud" width="16"></iconify-icon>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200 py-2 px-5 flex justify-between shadow-lg">
+    <button class="flex flex-col items-center text-gray-400" onclick="goToHome()">
+      <iconify-icon icon="lucide:home" width="22"></iconify-icon>
+      <span class="text-xs" id="navHome">Asosiy</span>
+    </button>
+    <button class="flex flex-col items-center text-gray-400" onclick="goToCalendar()">
+      <iconify-icon icon="lucide:calendar" width="22"></iconify-icon>
+      <span class="text-xs" id="navCalendar">Taqvim</span>
+    </button>
+    <button class="flex flex-col items-center text-gray-400" onclick="goToInfo()">
+      <iconify-icon icon="lucide:info" width="22"></iconify-icon>
+      <span class="text-xs" id="navInfo">Ma'lumot</span>
+    </button>
+    <button class="flex flex-col items-center text-teal-600">
+      <iconify-icon icon="lucide:user" width="22"></iconify-icon>
+      <span class="text-xs font-medium" id="navProfile">Profil</span>
+    </button>
+  </div>
+</div>
+
+<script>
+// ==================== TILLAR ====================
+const translations = {
+  uz: {
+    headerSubtitle: "👤 Mening profilim",
+    headerTitle: "Maftuna & Oila",
+    headerDesc: "Bola va ota-ona ma'lumotlari",
+    sectionChildTitle: "👶 Bola haqida",
+    editBtnText: "Tahrirlash",
+    weightLabel: "⚖️ Vazn",
+    heightLabel: "📏 Bo'y",
+    teethLabel: "🦷 Tishlar",
+    teethDesc: "pastki 2, ustki 2",
+    vaccinesLabel: "💉 Emlashlar",
+    vaccinesProgress: "70% bajarilgan",
+    updateBtnText: "🔄 Ma'lumotlarni yangilash",
+    sectionParentsTitle: "👨‍👩‍👧 Ota-ona haqida",
+    editParentsBtnText: "Tahrirlash",
+    motherLabel: "👩 Onaning ismi",
+    fatherLabel: "👨 Otaning ismi",
+    phoneLabel: "📞 Telefon raqam",
+    emailLabel: "📧 Email",
+    addressLabel: "📍 Manzil",
+    settingsTitle: "⚙️ Sozlamalar",
+    notificationLabel: "🔔 Bildirishnoma",
+    darkModeLabel: "🌙 Qorong'u rejim",
+    languageLabel: "🌐 Til",
+    changePasswordLabel: "🔐 Parolni o'zgartirish",
+    logoutLabel: "🚪 Chiqish",
+    otherInfoTitle: "📁 Boshqa ma'lumotlar",
+    clinicLabel: "🏥 Poliklinika",
+    pediatricianLabel: "👩‍⚕️ Pediatr",
+    downloadPDFLabel: "📋 Emlash kartasini yuklab olish (PDF)",
+    syncLabel: "🔄 Ma'lumotlarni sinxronlash (Cloud)",
+    navHome: "Asosiy",
+    navCalendar: "Taqvim",
+    navInfo: "Ma'lumot",
+    navProfile: "Profil",
+    weightChange: "+0.3 kg",
+    heightChange: "+1.2 sm"
+  },
+  ru: {
+    headerSubtitle: "👤 Мой профиль",
+    headerTitle: "Мафтуна & Семья",
+    headerDesc: "Информация о ребенке и родителях",
+    sectionChildTitle: "👶 О ребенке",
+    editBtnText: "Редактировать",
+    weightLabel: "⚖️ Вес",
+    heightLabel: "📏 Рост",
+    teethLabel: "🦷 Зубы",
+    teethDesc: "нижние 2, верхние 2",
+    vaccinesLabel: "💉 Прививки",
+    vaccinesProgress: "70% выполнено",
+    updateBtnText: "🔄 Обновить данные",
+    sectionParentsTitle: "👨‍👩‍👧 О родителях",
+    editParentsBtnText: "Редактировать",
+    motherLabel: "👩 Имя мамы",
+    fatherLabel: "👨 Имя папы",
+    phoneLabel: "📞 Телефон",
+    emailLabel: "📧 Email",
+    addressLabel: "📍 Адрес",
+    settingsTitle: "⚙️ Настройки",
+    notificationLabel: "🔔 Уведомления",
+    darkModeLabel: "🌙 Тёмный режим",
+    languageLabel: "🌐 Язык",
+    changePasswordLabel: "🔐 Сменить пароль",
+    logoutLabel: "🚪 Выйти",
+    otherInfoTitle: "📁 Другая информация",
+    clinicLabel: "🏥 Поликлиника",
+    pediatricianLabel: "👩‍⚕️ Педиатр",
+    downloadPDFLabel: "📋 Скачать карту прививок (PDF)",
+    syncLabel: "🔄 Синхронизация (Cloud)",
+    navHome: "Главная",
+    navCalendar: "Календарь",
+    navInfo: "Инфо",
+    navProfile: "Профиль",
+    weightChange: "+0.3 кг",
+    heightChange: "+1.2 см"
+  },
+  en: {
+    headerSubtitle: "👤 My Profile",
+    headerTitle: "Maftuna & Family",
+    headerDesc: "Child and parent information",
+    sectionChildTitle: "👶 About Child",
+    editBtnText: "Edit",
+    weightLabel: "⚖️ Weight",
+    heightLabel: "📏 Height",
+    teethLabel: "🦷 Teeth",
+    teethDesc: "bottom 2, top 2",
+    vaccinesLabel: "💉 Vaccinations",
+    vaccinesProgress: "70% completed",
+    updateBtnText: "🔄 Update Data",
+    sectionParentsTitle: "👨‍👩‍👧 About Parents",
+    editParentsBtnText: "Edit",
+    motherLabel: "👩 Mother's name",
+    fatherLabel: "👨 Father's name",
+    phoneLabel: "📞 Phone number",
+    emailLabel: "📧 Email",
+    addressLabel: "📍 Address",
+    settingsTitle: "⚙️ Settings",
+    notificationLabel: "🔔 Notifications",
+    darkModeLabel: "🌙 Dark mode",
+    languageLabel: "🌐 Language",
+    changePasswordLabel: "🔐 Change password",
+    logoutLabel: "🚪 Logout",
+    otherInfoTitle: "📁 Other information",
+    clinicLabel: "🏥 Clinic",
+    pediatricianLabel: "👩‍⚕️ Pediatrician",
+    downloadPDFLabel: "📋 Download vaccination card (PDF)",
+    syncLabel: "🔄 Sync data (Cloud)",
+    navHome: "Home",
+    navCalendar: "Calendar",
+    navInfo: "Info",
+    navProfile: "Profile",
+    weightChange: "+0.3 kg",
+    heightChange: "+1.2 cm"
+  }
+};
+
+let currentLang = 'uz';
+
+// Tilni o'zgartirish funksiyasi
+function changeLanguage() {
+  currentLang = document.getElementById('languageSelect').value;
+  const t = translations[currentLang];
+  
+  // Header
+  document.getElementById('headerSubtitle').innerText = t.headerSubtitle;
+  document.getElementById('headerTitle').innerText = t.headerTitle;
+  document.getElementById('headerDesc').innerText = t.headerDesc;
+  
+  // Bola haqida
+  document.getElementById('sectionChildTitle').innerHTML = t.sectionChildTitle;
+  document.getElementById('editBtnText').innerText = t.editBtnText;
+  document.getElementById('weightLabel').innerHTML = t.weightLabel;
+  document.getElementById('heightLabel').innerHTML = t.heightLabel;
+  document.getElementById('teethLabel').innerHTML = t.teethLabel;
+  document.getElementById('teethDesc').innerText = t.teethDesc;
+  document.getElementById('vaccinesLabel').innerHTML = t.vaccinesLabel;
+  document.getElementById('vaccinesProgress').innerText = t.vaccinesProgress;
+  document.getElementById('updateBtnText').innerHTML = t.updateBtnText;
+  document.getElementById('weightChange').innerText = t.weightChange;
+  document.getElementById('heightChange').innerText = t.heightChange;
+  
+  // Ota-ona haqida
+  document.getElementById('sectionParentsTitle').innerHTML = t.sectionParentsTitle;
+  document.getElementById('editParentsBtnText').innerText = t.editParentsBtnText;
+  document.getElementById('motherLabel').innerHTML = t.motherLabel;
+  document.getElementById('fatherLabel').innerHTML = t.fatherLabel;
+  document.getElementById('phoneLabel').innerHTML = t.phoneLabel;
+  document.getElementById('emailLabel').innerHTML = t.emailLabel;
+  document.getElementById('addressLabel').innerHTML = t.addressLabel;
+  
+  // Sozlamalar
+  document.getElementById('settingsTitle').innerHTML = t.settingsTitle;
+  document.getElementById('notificationLabel').innerHTML = t.notificationLabel;
+  document.getElementById('darkModeLabel').innerHTML = t.darkModeLabel;
+  document.getElementById('languageLabel').innerHTML = t.languageLabel;
+  document.getElementById('changePasswordLabel').innerHTML = t.changePasswordLabel;
+  document.getElementById('logoutLabel').innerHTML = t.logoutLabel;
+  
+  // Boshqa ma'lumotlar
+  document.getElementById('otherInfoTitle').innerHTML = t.otherInfoTitle;
+  document.getElementById('clinicLabel').innerHTML = t.clinicLabel;
+  document.getElementById('pediatricianLabel').innerHTML = t.pediatricianLabel;
+  document.getElementById('downloadPDFLabel').innerHTML = t.downloadPDFLabel;
+  document.getElementById('syncLabel').innerHTML = t.syncLabel;
+  
+  // Navigatsiya
+  document.getElementById('navHome').innerText = t.navHome;
+  document.getElementById('navCalendar').innerText = t.navCalendar;
+  document.getElementById('navInfo').innerText = t.navInfo;
+  document.getElementById('navProfile').innerText = t.navProfile;
+  
+  // Alert
+  const messages = { uz: "Til O'zbekchaga o'zgartirildi", ru: "Язык изменен на Русский", en: "Language changed to English" };
+  alert(messages[currentLang]);
+}
+
+// Bola ma'lumotlari
+let childData = {
+  name: "Maftuna",
+  birthDate: "2024-10-15",
+  bloodGroup: "A+",
+  weight: 7.5,
+  height: 68,
+  teeth: 4,
+  vaccinesDone: 7,
+  vaccinesTotal: 10
+};
+
+let parentsData = {
+  mother: "Dildora",
+  father: "Jahongir",
+  phone: "+998 99 123 45 67",
+  email: "dildora@example.com",
+  address: "Toshkent, Chilonzor tumani"
+};
+
+function calculateAge(birthDate) {
+  const birth = new Date(birthDate);
+  const today = new Date();
+  let months = (today.getFullYear() - birth.getFullYear()) * 12;
+  months -= birth.getMonth();
+  months += today.getMonth();
+  return months;
+}
+
+function updateDisplay() {
+  const months = calculateAge(childData.birthDate);
+  const t = translations[currentLang];
+  const ageText = months < 12 ? `${months} ${currentLang === 'uz' ? 'oylik' : currentLang === 'ru' ? 'месяцев' : 'months'}` : `${Math.floor(months/12)} ${currentLang === 'uz' ? 'yosh' : currentLang === 'ru' ? 'лет' : 'years'}`;
+  
+  document.getElementById('childName').innerText = childData.name;
+  document.getElementById('childAge').innerHTML = `${ageText} · ${childData.birthDate.split('-').reverse().join('.')}`;
+  document.getElementById('bloodGroup').innerHTML = `🩸 ${currentLang === 'uz' ? 'Qon guruhi' : currentLang === 'ru' ? 'Группа крови' : 'Blood group'}: ${childData.bloodGroup}`;
+  document.getElementById('weight').innerHTML = `${childData.weight} kg`;
+  document.getElementById('height').innerHTML = `${childData.height} sm`;
+  document.getElementById('teeth').innerHTML = `${childData.teeth} ${currentLang === 'uz' ? 'ta' : currentLang === 'ru' ? 'шт' : ''}`;
+  
+  document.getElementById('motherName').innerText = parentsData.mother;
+  document.getElementById('fatherName').innerText = parentsData.father;
+  document.getElementById('phone').innerText = parentsData.phone;
+  document.getElementById('email').innerText = parentsData.email;
+  document.getElementById('address').innerText = parentsData.address;
+}
+
+function editChildInfo() {
+  const t = translations[currentLang];
+  const newName = prompt(t.sectionChildTitle + " - " + (currentLang === 'uz' ? "Yangi ism:" : currentLang === 'ru' ? "Новое имя:" : "New name:"), childData.name);
+  if(newName) childData.name = newName;
+  
+  const newWeight = prompt(t.weightLabel + " (kg):", childData.weight);
+  if(newWeight) childData.weight = parseFloat(newWeight);
+  
+  const newHeight = prompt(t.heightLabel + " (sm):", childData.height);
+  if(newHeight) childData.height = parseFloat(newHeight);
+  
+  updateDisplay();
+  alert("✅ " + (currentLang === 'uz' ? "Ma'lumotlar yangilandi!" : currentLang === 'ru' ? "Данные обновлены!" : "Data updated!"));
+}
+
+function editParentsInfo() {
+  const t = translations[currentLang];
+  const newMother = prompt(t.motherLabel + ":", parentsData.mother);
+  if(newMother) parentsData.mother = newMother;
+  
+  const newFather = prompt(t.fatherLabel + ":", parentsData.father);
+  if(newFather) parentsData.father = newFather;
+  
+  const newPhone = prompt(t.phoneLabel + ":", parentsData.phone);
+  if(newPhone) parentsData.phone = newPhone;
+  
+  updateDisplay();
+  alert("✅ " + (currentLang === 'uz' ? "Ma'lumotlar yangilandi!" : currentLang === 'ru' ? "Данные обновлены!" : "Data updated!"));
+}
+
+function changeAvatar() {
+  alert(currentLang === 'uz' ? "🖼 Avatar o'zgartirish (keyingi versiyada)" : currentLang === 'ru' ? "🖼 Смена аватара (в следующей версии)" : "🖼 Change avatar (next version)");
+}
+
+function updateData() {
+  const t = translations[currentLang];
+  const newWeight = prompt(t.weightLabel + " (kg):", childData.weight);
+  if(newWeight) childData.weight = parseFloat(newWeight);
+  
+  const newHeight = prompt(t.heightLabel + " (sm):", childData.height);
+  if(newHeight) childData.height = parseFloat(newHeight);
+  
+  updateDisplay();
+  alert("✅ " + (currentLang === 'uz' ? "Ma'lumotlar yangilandi!" : currentLang === 'ru' ? "Данные обновлены!" : "Data updated!"));
+}
+
+function toggleNotification() {
+  const isChecked = document.getElementById('notificationToggle').checked;
+  const msg = isChecked ? (currentLang === 'uz' ? "🔔 Bildirishnomalar yoqildi" : currentLang === 'ru' ? "🔔 Уведомления включены" : "🔔 Notifications enabled") : (currentLang === 'uz' ? "🔕 Bildirishnomalar o'chirildi" : currentLang === 'ru' ? "🔕 Уведомления выключены" : "🔕 Notifications disabled");
+  alert(msg);
+}
+
+function toggleDarkMode() {
+  const isDark = document.getElementById('darkModeToggle').checked;
+  const body = document.getElementById('body');
+  const container = document.getElementById('mainContainer');
+  if(isDark) {
+    body.classList.add('dark-mode');
+    container.classList.add('bg-gray-900');
+  } else {
+    body.classList.remove('dark-mode');
+    container.classList.remove('bg-gray-900');
+  }
+}
+
+function changePassword() {
+  const oldPass = prompt(currentLang === 'uz' ? "Eski parol:" : currentLang === 'ru' ? "Старый пароль:" : "Old password:");
+  if(oldPass === "123456") {
+    const newPass = prompt(currentLang === 'uz' ? "Yangi parol:" : currentLang === 'ru' ? "Новый пароль:" : "New password:");
+    if(newPass) alert("✅ " + (currentLang === 'uz' ? "Parol o'zgartirildi!" : currentLang === 'ru' ? "Пароль изменен!" : "Password changed!"));
+  } else if(oldPass) alert("❌ " + (currentLang === 'uz' ? "Eski parol noto'g'ri!" : currentLang === 'ru' ? "Неверный старый пароль!" : "Wrong old password!"));
+}
+
+function logout() {
+  if(confirm(currentLang === 'uz' ? "Chiqishni xohlaysizmi?" : currentLang === 'ru' ? "Вы хотите выйти?" : "Do you want to logout?")) {
+    location.reload();
+  }
+}
+
+function downloadPDF() {
+  alert("📋 " + (currentLang === 'uz' ? "Emlash kartasi yuklab olinmoqda..." : currentLang === 'ru' ? "Карта прививок загружается..." : "Downloading vaccination card..."));
+}
+
+function syncData() {
+  alert("🔄 " + (currentLang === 'uz' ? "Sinxronlanmoqda..." : currentLang === 'ru' ? "Синхронизация..." : "Syncing..."));
+  setTimeout(() => alert("✅ " + (currentLang === 'uz' ? "Sinxronlandi!" : currentLang === 'ru' ? "Синхронизировано!" : "Synced!")), 1500);
+}
+
+function goToHome() { alert(currentLang === 'uz' ? "Asosiy sahifa" : currentLang === 'ru' ? "Главная страница" : "Home page"); }
+function goToCalendar() { alert(currentLang === 'uz' ? "Taqvim sahifasi" : currentLang === 'ru' ? "Страница календаря" : "Calendar page"); }
+function goToInfo() { alert(currentLang === 'uz' ? "Ma'lumotlar sahifasi" : currentLang === 'ru' ? "Информационная страница" : "Info page"); }
+
+updateDisplay();
+</script>
+</body>
+</html>

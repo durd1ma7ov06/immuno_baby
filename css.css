@@ -1,0 +1,245 @@
+/* CSS Custom Properties - Theme Values */
+    :root {
+      --background: 248 250 252;
+      --foreground: 30 41 59;
+
+      --card: 255 255 255;
+      --card-foreground: 51 65 85;
+
+      --popover: 255 255 255;
+      --popover-foreground: 51 65 85;
+
+      --primary: 20 184 166;
+      --primary-foreground: 255 255 255;
+
+      --secondary: 255 228 230;
+      --secondary-foreground: 251 113 133;
+
+      --muted: 241 245 249;
+      --muted-foreground: 100 116 139;
+
+      --accent: 240 253 250;
+      --accent-foreground: 15 118 110;
+
+      --destructive: 239 68 68;
+      --destructive-foreground: 255 255 255;
+
+      --border: 226 232 240;
+      --input: 226 232 240;
+      --ring: 20 184 166;
+
+      --radius: 1.5rem;
+
+      --chart-1: #14B8A6;
+      --chart-2: #F59E0B;
+      --chart-3: #3B82F6;
+      --chart-4: #EC4899;
+      --chart-5: #8B5CF6;
+
+      --font-sans: "Inter", system-ui, sans-serif;
+      --font-heading: "Nunito", system-ui, sans-serif;
+      --font-serif: "Playfair Display", Georgia, serif;
+      --font-mono: "JetBrains Mono", monospace;
+    }
+
+    /* Apply base font */
+    body {
+      font-family: var(--font-sans);
+      background-color: rgb(var(--background));
+      color: rgb(var(--foreground));
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Hide scrollbars globally (both vertical and horizontal) */
+    * {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+    *::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+
+    /* Safe area utilities for mobile */
+    .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+    .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+    .pl-safe { padding-left: env(safe-area-inset-left, 0px); }
+    .pr-safe { padding-right: env(safe-area-inset-right, 0px); }
+
+    /* Hide scrollbar but allow scrolling */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Smooth transitions for interactive elements */
+    button, a, [role="button"] {
+      transition: all 0.15s ease;
+    }
+
+    /* Better image rendering */
+    img {
+      image-rendering: -webkit-optimize-contrast;
+    }
+    /*bosh sahifa
+    /* CSS Custom Properties - Theme Values */
+    :root {
+      --background: 248 250 252;
+      --foreground: 30 41 59;
+
+      --card: 255 255 255;
+      --card-foreground: 51 65 85;
+
+      --popover: 255 255 255;
+      --popover-foreground: 51 65 85;
+
+      --primary: 20 184 166;
+      --primary-foreground: 255 255 255;
+
+      --secondary: 255 228 230;
+      --secondary-foreground: 251 113 133;
+
+      --muted: 241 245 249;
+      --muted-foreground: 100 116 139;
+
+      --accent: 240 253 250;
+      --accent-foreground: 15 118 110;
+
+      --destructive: 239 68 68;
+      --destructive-foreground: 255 255 255;
+
+      --border: 226 232 240;
+      --input: 226 232 240;
+      --ring: 20 184 166;
+
+      --radius: 1.5rem;
+
+      --chart-1: #14B8A6;
+      --chart-2: #F59E0B;
+      --chart-3: #3B82F6;
+      --chart-4: #EC4899;
+      --chart-5: #8B5CF6;
+
+      --font-sans: "Inter", system-ui, sans-serif;
+      --font-heading: "Nunito", system-ui, sans-serif;
+      --font-serif: "Playfair Display", Georgia, serif;
+      --font-mono: "JetBrains Mono", monospace;
+    }
+
+    /* Apply base font */
+    body {
+      font-family: var(--font-sans);
+      background-color: rgb(var(--background));
+      color: rgb(var(--foreground));
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Hide scrollbars globally (both vertical and horizontal) */
+    * {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+    *::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+
+    /* Safe area utilities for mobile */
+    .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+    .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+    .pl-safe { padding-left: env(safe-area-inset-left, 0px); }
+    .pr-safe { padding-right: env(safe-area-inset-right, 0px); }
+
+    /* Hide scrollbar but allow scrolling */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Smooth transitions for interactive elements */
+    button, a, [role="button"] {
+      transition: all 0.15s ease;
+    }
+
+    /* Better image rendering */
+    img {
+      image-rendering: -webkit-optimize-contrast;
+    }
+    /*emlash
+    /* CSS Custom Properties - Theme Values */
+    :root {
+      --background: 248 250 252;
+      --foreground: 30 41 59;
+
+      --card: 255 255 255;
+      --card-foreground: 51 65 85;
+
+      --popover: 255 255 255;
+      --popover-foreground: 51 65 85;
+
+      --primary: 20 184 166;
+      --primary-foreground: 255 255 255;
+
+      --secondary: 255 228 230;
+      --secondary-foreground: 251 113 133;
+
+      --muted: 241 245 249;
+      --muted-foreground: 100 116 139;
+
+      --accent: 240 253 250;
+      --accent-foreground: 15 118 110;
+
+      --destructive: 239 68 68;
+      --destructive-foreground: 255 255 255;
+
+      --border: 226 232 240;
+      --input: 226 232 240;
+      --ring: 20 184 166;
+
+      --radius: 1.5rem;
+
+      --chart-1: #14B8A6;
+      --chart-2: #F59E0B;
+      --chart-3: #3B82F6;
+      --chart-4: #EC4899;
+      --chart-5: #8B5CF6;
+
+      --font-sans: "Inter", system-ui, sans-serif;
+      --font-heading: "Nunito", system-ui, sans-serif;
+      --font-serif: "Playfair Display", Georgia, serif;
+      --font-mono: "JetBrains Mono", monospace;
+    }
+
+    /* Apply base font */
+    body {
+      font-family: var(--font-sans);
+      background-color: rgb(var(--background));
+      color: rgb(var(--foreground));
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Hide scrollbars globally (both vertical and horizontal) */
+    * {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+    *::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+
+    /* Safe area utilities for mobile */
+    .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+    .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+    .pl-safe { padding-left: env(safe-area-inset-left, 0px); }
+    .pr-safe { padding-right: env(safe-area-inset-right, 0px); }
+
+    /* Hide scrollbar but allow scrolling */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Smooth transitions for interactive elements */
+    button, a, [role="button"] {
+      transition: all 0.15s ease;
+    }
+
+    /* Better image rendering */
+    img {
+      image-rendering: -webkit-optimize-contrast;
+    }

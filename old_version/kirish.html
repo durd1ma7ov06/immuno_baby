@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VaxiCare App</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
+
+<style>
+body { transition: all 0.4s ease; }
+.fade { animation: fadeIn 0.5s ease; }
+@keyframes fadeIn {
+  from {opacity:0; transform: translateY(20px);}
+  to {opacity:1; transform: translateY(0);}
+}
+</style>
+</head>
+
+<body class="bg-gray-100">
+
+<!-- ================= ONBOARDING ================= -->
+<div id="onboarding" class="h-screen flex flex-col justify-between p-6">
+
+<div></div>
+
+<div class="flex flex-col items-center text-center fade">
+
+<!-- LOGO -->
+<div class="w-24 h-24 bg-teal-500 rounded-3xl flex items-center justify-center shadow-lg mb-6">
+  <iconify-icon icon="lucide:shield-plus" width="40" style="color:white;"></iconify-icon>
+</div>
+
+<h1 class="text-3xl font-bold text-gray-800 mb-2">VaxiCare</h1>
+<p class="text-gray-500 mb-6">Smart Emlash Tizimi</p>
+
+<!-- ICONS -->
+<div class="flex gap-4 mb-8">
+  <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+    <iconify-icon icon="lucide:baby"></iconify-icon>
+  </div>
+  <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+    <iconify-icon icon="lucide:syringe"></iconify-icon>
+  </div>
+  <div class="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center">
+    <iconify-icon icon="lucide:heart"></iconify-icon>
+  </div>
+</div>
+
+<h2 class="text-xl font-semibold mb-2">
+Farzandingiz sog'ligi – bizning vazifamiz
+</h2>
+
+<p class="text-gray-500 text-sm">
+Emlashni oson nazorat qiling
+</p>
+
+</div>
+
+<button onclick="startApp()" class="bg-teal-500 text-white p-4 rounded-xl mt-10">
+Boshlash →
+</button>
+
+</div>
+
+<!-- ================= DASHBOARD ================= -->
+<div id="dashboard" class="hidden h-screen flex flex-col">
+
+<!-- HEADER -->
+<div class="p-4 flex justify-between items-center bg-white shadow">
+<h2 class="font-bold">Salom, Malika 👶</h2>
+</div>
+
+<!-- CONTENT -->
+<div class="p-4 space-y-4 overflow-y-auto">
+
+<!-- CARD -->
+<div class="bg-teal-500 text-white p-5 rounded-2xl shadow">
+<p>Keyingi emlash</p>
+<h2 class="text-2xl font-bold">Pentavalent</h2>
+<p>3 kun qoldi</p>
+</div>
+
+<!-- STATS -->
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-white p-4 rounded-xl shadow text-center">
+<p>Vazn</p>
+<h3 class="font-bold text-xl">7.5 kg</h3>
+</div>
+
+<div class="bg-white p-4 rounded-xl shadow text-center">
+<p>Bo'y</p>
+<h3 class="font-bold text-xl">68 sm</h3>
+</div>
+</div>
+
+<!-- LIST -->
+<div class="bg-white p-4 rounded-xl shadow">
+<h3 class="font-bold mb-2">Emlashlar</h3>
+<ul class="text-sm space-y-1">
+<li>✔️ BCG</li>
+<li>✔️ Pentavalent 1</li>
+<li>❌ Pentavalent 2</li>
+</ul>
+</div>
+
+</div>
+
+<!-- NAVBAR -->
+<div class="bg-white p-3 flex justify-around border-t">
+<button>🏠</button>
+<button>📅</button>
+<button>📊</button>
+<button>👶</button>
+</div>
+
+</div>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+
+function startApp(){
+  document.getElementById("onboarding").style.display = "none";
+  document.getElementById("dashboard").classList.remove("hidden");
+}
+
+// Notification
+if (Notification.permission !== "granted") {
+  Notification.requestPermission();
+}
+
+setTimeout(()=>{
+  new Notification("Eslatma!", {
+    body: "3 kun ichida emlash bor!"
+  });
+}, 3000);
+
+</script>
+
+</body>
+</html>
