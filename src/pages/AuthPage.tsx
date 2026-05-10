@@ -190,12 +190,23 @@ export const AuthPage = ({ onLogin }: AuthPageProps) => {
         password: form.password,
       })
       
-      setIsLoading(false)
       if (error) {
+        setIsLoading(false)
         setErrors({ phone: "Telefon raqami yoki parol noto'g'ri" })
         return
       }
-      onLogin(userType)
+
+      // Foydalanuvchining asl rolini (ota-ona yoki shifokor) bazadan tekshiramiz
+      const { data: profile } = await supabase.from('profiles').select('role').eq('id', data.user.id).single()
+      
+      setIsLoading(false)
+
+      if (profile && profile.role !== userType) {
+        alert(`Siz bu tizimda ${profile.role === 'doctor' ? 'Shifokor' : 'Ota-ona'} sifatida ro'yxatdan o'tgansiz. Iltimos, tepadan to'g'ri bo'limni tanlang!`)
+        return
+      }
+
+      onLogin(profile?.role || userType)
     } 
     
     // REGISTER (Ro'yxatdan o'tish)
