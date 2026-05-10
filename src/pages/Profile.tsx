@@ -1,32 +1,60 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { User, Phone, MapPin, Briefcase, AlertCircle, Map, Save, Globe, ShieldCheck, UserCheck, Baby, CheckCircle2, Settings, Info } from 'lucide-react'
+import { User, Phone, MapPin, Briefcase, AlertCircle, Map, Save, Globe, ShieldCheck, UserCheck, Baby, CheckCircle2, Settings, Info, Edit2 } from 'lucide-react'
 
-const ParentCard = ({ title, name, phone, work, t, icon: Icon, gender }: any) => (
-  <div className="glass-panel rounded-[2.5rem] p-7 card-hover group cursor-pointer">
+const ParentCard = ({ title, data, onChange, isEditing, t, icon: Icon, gender }: any) => (
+  <div className="glass-panel rounded-[2.5rem] p-7 relative">
     <div className="flex items-center gap-4 mb-7">
-      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-inner transition-transform duration-500 group-hover:scale-110 ${
+      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-inner ${
         gender === 'f' ? 'bg-rose-50 text-rose-500' : 'bg-blue-50 text-blue-500'
       }`}>
         <Icon size={28} />
       </div>
-      <div>
+      <div className="flex-1">
         <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{title}</h4>
-        <p className="text-lg font-extrabold text-slate-800 tracking-tight">{name}</p>
+        {isEditing ? (
+          <input 
+            type="text" 
+            value={data.name} 
+            onChange={(e) => onChange('name', e.target.value)}
+            className="w-full mt-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-sm font-bold text-slate-800 outline-none focus:border-brand-300"
+          />
+        ) : (
+          <p className="text-lg font-extrabold text-slate-800 tracking-tight">{data.name}</p>
+        )}
       </div>
     </div>
     <div className="space-y-3">
       <div className="flex items-center gap-3.5 p-4 rounded-xl bg-slate-50/60 border border-slate-100/50 backdrop-blur-sm">
         <Phone className="text-slate-400" size={16} />
-        <div>
+        <div className="flex-1">
           <p className="text-[9px] font-bold text-slate-400 uppercase">{t.phone}</p>
-          <p className="text-sm font-semibold text-slate-700">{phone}</p>
+          {isEditing ? (
+            <input 
+              type="text" 
+              value={data.phone} 
+              onChange={(e) => onChange('phone', e.target.value)}
+              className="w-full mt-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-sm font-semibold text-slate-700 outline-none focus:border-brand-300"
+            />
+          ) : (
+            <p className="text-sm font-semibold text-slate-700">{data.phone}</p>
+          )}
         </div>
       </div>
       <div className="flex items-center gap-3.5 p-4 rounded-xl bg-slate-50/60 border border-slate-100/50 backdrop-blur-sm">
         <Briefcase className="text-slate-400" size={16} />
-        <div>
+        <div className="flex-1">
           <p className="text-[9px] font-bold text-slate-400 uppercase">{t.occupation}</p>
-          <p className="text-sm font-semibold text-slate-700">{work}</p>
+          {isEditing ? (
+            <input 
+              type="text" 
+              value={data.work} 
+              onChange={(e) => onChange('work', e.target.value)}
+              className="w-full mt-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-sm font-semibold text-slate-700 outline-none focus:border-brand-300"
+            />
+          ) : (
+            <p className="text-sm font-semibold text-slate-700">{data.work}</p>
+          )}
         </div>
       </div>
     </div>
@@ -34,6 +62,23 @@ const ParentCard = ({ title, name, phone, work, t, icon: Icon, gender }: any) =>
 )
 
 export const Profile = ({ t, lang, setLang }: { t: any, lang: string, setLang: (l: string) => void }) => {
+  const [isEditing, setIsEditing] = useState(false)
+  
+  const [mother, setMother] = useState({
+    name: "Aziza Alisherova",
+    phone: "+998 90 123 45 67",
+    work: "O'qituvchi, 15-maktab"
+  })
+
+  const [father, setFather] = useState({
+    name: "Jasurbek Alisherov",
+    phone: "+998 93 765 43 21",
+    work: "Muhandis, IT-Park"
+  })
+
+  const handleMotherChange = (field: string, val: string) => setMother(prev => ({ ...prev, [field]: val }))
+  const handleFatherChange = (field: string, val: string) => setFather(prev => ({ ...prev, [field]: val }))
+
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -90,9 +135,23 @@ export const Profile = ({ t, lang, setLang }: { t: any, lang: string, setLang: (
             </div>
           </motion.div>
 
-          <motion.div variants={item} className="grid grid-cols-2 gap-7">
-            <ParentCard title={t.mother_info} name="Aziza Alisherova" phone="+998 90 123 45 67" work="O'qituvchi, 15-maktab" t={t} icon={UserCheck} gender="f" />
-            <ParentCard title={t.father_info} name="Jasurbek Alisherov" phone="+998 93 765 43 21" work="Muhandis, IT-Park" t={t} icon={User} gender="m" />
+          {/* PARENT CARDS */}
+          <motion.div variants={item}>
+            <div className="flex items-center justify-between mb-4 px-2">
+              <h3 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider">Ota-ona ma'lumotlari</h3>
+              <button 
+                onClick={() => setIsEditing(!isEditing)} 
+                className={`flex items-center gap-1.5 text-[11px] font-bold uppercase px-4 py-2 rounded-xl transition-all ${
+                  isEditing ? 'bg-brand-500 text-white shadow-md' : 'bg-white text-brand-500 border border-brand-100 hover:bg-brand-50'
+                }`}
+              >
+                {isEditing ? <><Save size={14}/> Saqlash</> : <><Edit2 size={14}/> Tahrirlash</>}
+              </button>
+            </div>
+            <div className="grid grid-cols-2 gap-7">
+              <ParentCard title={t.mother_info} data={mother} onChange={handleMotherChange} isEditing={isEditing} t={t} icon={UserCheck} gender="f" />
+              <ParentCard title={t.father_info} data={father} onChange={handleFatherChange} isEditing={isEditing} t={t} icon={User} gender="m" />
+            </div>
           </motion.div>
 
           <motion.div variants={item} className="grid grid-cols-2 gap-7">
