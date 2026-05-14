@@ -50,15 +50,9 @@ export const Sidebar = ({ activePortal, setActivePortal, t, userType, onLogout, 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex items-center gap-3.5 mb-12 px-3"
+          className="flex items-center gap-3 mb-12 px-3"
         >
-          <div className={`w-11 h-11 rounded-2xl flex items-center justify-center text-white shadow-lg transition-all duration-500 ${
-            userType === 'doctor' 
-              ? 'bg-gradient-to-br from-blue-600 to-indigo-700 shadow-blue-600/25' 
-              : 'bg-gradient-to-br from-brand-500 to-brand-400 shadow-brand'
-          }`}>
-            {userType === 'doctor' ? <Stethoscope size={20} /> : <Heart size={20} fill="currentColor" />}
-          </div>
+          <img src="/logo.png" alt="Immuno Baby" className="w-12 h-12 object-contain" />
           <div>
             <h2 className="text-[17px] font-extrabold text-slate-800 tracking-tight leading-tight">Immuno Baby</h2>
             <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.15em] mt-0.5">

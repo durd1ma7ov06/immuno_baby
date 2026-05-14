@@ -121,6 +121,8 @@ export const AuthPage = ({ onLogin }: AuthPageProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string,string>>({})
   const [agreed, setAgreed] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
+  const [generalError, setGeneralError] = useState('')
 
   const [form, setForm] = useState({
     fullName: '', phone: '', password: '', confirmPassword: '',
@@ -202,7 +204,7 @@ export const AuthPage = ({ onLogin }: AuthPageProps) => {
       setIsLoading(false)
 
       if (profile && profile.role !== userType) {
-        alert(`Siz bu tizimda ${profile.role === 'doctor' ? 'Shifokor' : 'Ota-ona'} sifatida ro'yxatdan o'tgansiz. Iltimos, tepadan to'g'ri bo'limni tanlang!`)
+        setGeneralError(`Siz bu tizimda ${profile.role === 'doctor' ? 'Shifokor' : 'Ota-ona'} sifatida ro'yxatdan o'tgansiz. Iltimos, tepadan to'g'ri bo'limni tanlang!`)
         return
       }
 
@@ -263,11 +265,31 @@ export const AuthPage = ({ onLogin }: AuthPageProps) => {
           if (patientError) throw new Error(patientError.message)
         }
 
-        alert("Muvaffaqiyatli ro'yxatdan o'tdingiz!")
-        onLogin(userType)
+        // Muvaffaqiyatli ro'yxatdan o'tdi! Success ekranini ko'rsatamiz
+        setShowSuccess(true)
+        setIsLoading(false)
+        
+        // 3 soniyadan keyin avtomatik Login sahifasiga o'tkazamiz
+        setTimeout(() => {
+          setShowSuccess(false)
+          setIsLogin(true)
+          setStep(1)
+          setForm({
+            fullName: '', phone: '', password: '', confirmPassword: '',
+            region: 'xorazm', district: '', neighborhood: '', street: '',
+            childName: '', childBirthDate: '', childGender: 'female' as 'male'|'female',
+            childBloodType: '', emergencyPhone: '',
+            specialization: '', clinicName: '', licenseNumber: '', experience: '',
+          })
+          setAgreed(false)
+          setErrors({})
+          setGeneralError('')
+        }, 3000)
+        
+        return // finally ga tushmasin
         
       } catch (err: any) {
-        alert("Xatolik yuz berdi: " + err.message)
+        setGeneralError(err.message || "Noma'lum xatolik yuz berdi")
       } finally {
         setIsLoading(false)
       }
@@ -275,6 +297,68 @@ export const AuthPage = ({ onLogin }: AuthPageProps) => {
   }
 
   const totalSteps = isLogin ? 1 : 3
+
+  // SUCCESS MODAL - Ro'yxatdan muvaffaqiyatli o'tgandan keyin ko'rsatiladi
+  if (showSuccess) {
+    return (
+      <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-[#F6F7FB]">
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <motion.div animate={{ y:[0,-40,0], x:[0,30,0], scale:[1,1.15,1] }} transition={{ duration:18, repeat:Infinity, ease:"easeInOut" }}
+            className="absolute top-[-20%] right-[-15%] w-[60%] h-[60%] bg-gradient-to-br from-emerald-200/40 to-emerald-300/20 blur-[140px] rounded-full" />
+          <motion.div animate={{ y:[0,50,0], x:[0,-25,0], scale:[1,1.1,1] }} transition={{ duration:22, repeat:Infinity, ease:"easeInOut", delay:4 }}
+            className="absolute bottom-[-20%] left-[-15%] w-[50%] h-[50%] bg-gradient-to-tr from-teal-200/30 to-emerald-200/20 blur-[160px] rounded-full" />
+        </div>
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.8, y: 30 }} 
+          animate={{ opacity: 1, scale: 1, y: 0 }} 
+          transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+          className="relative z-10 bg-white/90 backdrop-blur-3xl rounded-[3rem] p-12 max-w-md w-full mx-6 text-center border border-white/60 shadow-2xl shadow-emerald-500/10"
+        >
+          <motion.div 
+            initial={{ scale: 0 }} 
+            animate={{ scale: 1 }} 
+            transition={{ delay: 0.2, type: 'spring', stiffness: 200, damping: 15 }}
+            className="w-24 h-24 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl shadow-emerald-500/30"
+          >
+            <CheckCircle2 size={48} className="text-white" />
+          </motion.div>
+          
+          <motion.h2 
+            initial={{ opacity: 0, y: 10 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ delay: 0.4 }}
+            className="text-2xl font-extrabold text-slate-800 mb-3"
+          >
+            Muvaffaqiyatli! 🎉
+          </motion.h2>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: 10 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ delay: 0.5 }}
+            className="text-sm font-medium text-slate-500 mb-6 leading-relaxed"
+          >
+            Siz muvaffaqiyatli ro'yxatdan o'tdingiz!<br/>
+            Endi tizimga kirishingiz mumkin.
+          </motion.p>
+
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            transition={{ delay: 0.7 }}
+            className="flex items-center justify-center gap-2 text-xs font-semibold text-emerald-600"
+          >
+            <motion.div 
+              animate={{ rotate: 360 }} 
+              transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
+              className="w-4 h-4 border-2 border-emerald-300 border-t-emerald-600 rounded-full"
+            />
+            Kirish sahifasiga yo'naltirilmoqda...
+          </motion.div>
+        </motion.div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-[#F6F7FB]">
@@ -301,8 +385,8 @@ export const AuthPage = ({ onLogin }: AuthPageProps) => {
             <div className="relative z-10 p-12 flex flex-col h-full justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-14">
-                  <div className="w-12 h-12 bg-white/15 backdrop-blur-xl rounded-2xl flex items-center justify-center border border-white/20">
-                    <Heart size={24} fill="currentColor" className="text-white" />
+                  <div className="w-14 h-14 bg-white/15 backdrop-blur-xl rounded-2xl flex items-center justify-center border border-white/20 p-1.5">
+                    <img src="/logo.png" alt="Immuno Baby" className="w-full h-full object-contain brightness-0 invert" />
                   </div>
                   <div>
                     <h2 className="text-xl font-extrabold text-white tracking-tight">Immuno Baby</h2>
@@ -386,6 +470,24 @@ export const AuthPage = ({ onLogin }: AuthPageProps) => {
                     : step===2 ? (userType==='parent' ? "Farzandingiz haqida ma'lumot" : "Professional ma'lumotlaringiz")
                     : "Ma'lumotlarni tekshiring va tasdiqlang"}
                 </p>
+
+                {/* General Error Message */}
+                {generalError && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: -10 }} 
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-rose-50 border border-rose-200 rounded-2xl p-4 mb-4 flex items-start gap-3"
+                  >
+                    <AlertCircle size={18} className="text-rose-500 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-[12px] font-bold text-rose-700">Xatolik yuz berdi</p>
+                      <p className="text-[11px] text-rose-500 mt-0.5">{generalError}</p>
+                    </div>
+                    <button onClick={() => setGeneralError('')} className="ml-auto text-rose-300 hover:text-rose-500 transition-colors">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                  </motion.div>
+                )}
 
                 <form onSubmit={handleSubmit} className="space-y-3.5">
                   
